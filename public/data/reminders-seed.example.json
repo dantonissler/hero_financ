@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "updatedAt": "2026-01-01T00:00:00.000Z",
+  "months": [
+    { "monthKey": "2026-01", "monthLabel": "Janeiro 2026" }
+  ],
+  "reminders": [
+    {
+      "id": "r-example",
+      "monthKey": "2026-01",
+      "monthLabel": "Janeiro 2026",
+      "descricao": "Exemplo de conta",
+      "valor": 0,
+      "status": "unpaid",
+      "parcela": "",
+      "link": "",
+      "observacao": ""
+    }
+  ],
+  "history": []
+}
