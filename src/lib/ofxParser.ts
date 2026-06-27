@@ -54,7 +54,7 @@ export function parseOfx(content: string): Transaction[] {
         type,
         memo,
         description,
-        category: categorizeTransaction(memo, type),
+        category: categorizeTransaction(memo, type, description),
         isInternal: internal,
       };
     })

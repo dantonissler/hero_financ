@@ -477,6 +477,100 @@ body {
   padding: 0.55rem 0.8rem;
 }
 
+.transaction-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.transaction-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 9rem;
+}
+
+.transaction-filter-field--grow {
+  flex: 1 1 12rem;
+  min-width: 10rem;
+}
+
+.transaction-filter-field span {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.filter-input {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.filter-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.filter-select {
+  cursor: pointer;
+}
+
+.transaction-filter-clear {
+  margin-bottom: 0.1rem;
+  white-space: nowrap;
+}
+
+.rules-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.rules-group h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.rules-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.rules-group li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+
+.rules-group strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.rules-group span {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.ghost-btn--danger {
+  color: var(--red);
+  border-color: color-mix(in srgb, var(--red) 35%, var(--border));
+}
+
 .filter-group {
   display: flex;
   gap: 0.35rem;
@@ -525,6 +619,42 @@ th {
   border-radius: 999px;
   background: var(--surface-2);
   font-size: 0.8rem;
+}
+
+.category-select {
+  width: 100%;
+  min-width: 10rem;
+  max-width: 16rem;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.category-select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.transactions-table tfoot td {
+  border-bottom: none;
+  border-top: 2px solid var(--border);
+  padding-top: 0.85rem;
+}
+
+.transaction-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.transaction-total-net {
+  margin-top: 0.15rem;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 .amount {

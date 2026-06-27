@@ -9,9 +9,11 @@ import {
 } from './lib/dateFilter';
 import type { DateFilterValue } from './lib/dateFilter';
 import { loadDefaultStatements } from './lib/ofxParser';
+import { useCategoryOverrides } from './hooks/useCategoryOverrides';
 import { CashFlowChart } from './components/CashFlowChart';
 import { CaixinhaPanel } from './components/CaixinhaPanel';
 import { CategoryChart } from './components/CategoryChart';
+import { CategoryRulesPanel } from './components/CategoryRulesPanel';
 import { DateFilter } from './components/DateFilter';
 import { FileUploader } from './components/FileUploader';
 import { InsightsPanel } from './components/InsightsPanel';
@@ -37,6 +39,7 @@ export default function App() {
   const [dateFilter, setDateFilter] = useState<DateFilterValue>(DEFAULT_DATE_FILTER);
   const [loadingStatements, setLoadingStatements] = useState(true);
   const [statementsError, setStatementsError] = useState<string | null>(null);
+  const { setCategory, deleteRule, applyOverrides, overrides } = useCategoryOverrides();
 
   const loadStatements = useCallback(async () => {
     setLoadingStatements(true);
@@ -55,12 +58,17 @@ export default function App() {
     void loadStatements();
   }, [loadStatements]);
 
-  const availableMonths = useMemo(() => getAvailableMonths(transactions), [transactions]);
-  const dateBounds = useMemo(() => getDateBounds(transactions), [transactions]);
+  const categorizedTransactions = useMemo(
+    () => applyOverrides(transactions),
+    [transactions, applyOverrides],
+  );
+
+  const availableMonths = useMemo(() => getAvailableMonths(categorizedTransactions), [categorizedTransactions]);
+  const dateBounds = useMemo(() => getDateBounds(categorizedTransactions), [categorizedTransactions]);
 
   const filteredTransactions = useMemo(
-    () => filterTransactionsByDate(transactions, dateFilter),
-    [transactions, dateFilter],
+    () => filterTransactionsByDate(categorizedTransactions, dateFilter),
+    [categorizedTransactions, dateFilter],
   );
 
   const analytics = useMemo(() => {
@@ -69,9 +77,9 @@ export default function App() {
   }, [filteredTransactions]);
 
   const caixinhaSummary = useMemo(() => {
-    if (transactions.length === 0 || filteredTransactions.length === 0) return null;
-    return buildCaixinhaSummary(transactions, filteredTransactions);
-  }, [transactions, filteredTransactions]);
+    if (categorizedTransactions.length === 0 || filteredTransactions.length === 0) return null;
+    return buildCaixinhaSummary(categorizedTransactions, filteredTransactions);
+  }, [categorizedTransactions, filteredTransactions]);
 
   return (
     <div className="app-shell">
@@ -137,13 +145,20 @@ export default function App() {
                 <CategoryChart data={analytics.categoryBreakdown} />
               </div>
               <InsightsPanel insights={analytics.insights} topMerchants={analytics.topMerchants} />
-              <TransactionTable transactions={analytics.transactions} />
+              <CategoryRulesPanel
+                rules={overrides.containsRules}
+                onDeleteRule={deleteRule}
+              />
+              <TransactionTable
+                transactions={analytics.transactions}
+                onCategoryChange={setCategory}
+              />
             </>
           )}
         </>
       )}
 
-      {activeTab === 'lembretes' && <RemindersTab transactions={transactions} />}
+      {activeTab === 'lembretes' && <RemindersTab transactions={categorizedTransactions} />}
     </div>
   );
 }

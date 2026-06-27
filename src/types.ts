@@ -7,6 +7,7 @@ export type Category =
   | 'Transporte'
   | 'Moradia'
   | 'Contas e serviços'
+  | 'Imposto'
   | 'Assinaturas'
   | 'Saúde'
   | 'Compras'
@@ -15,6 +16,24 @@ export type Category =
   | 'Investimentos'
   | 'Transferências'
   | 'Outros';
+
+export const ALL_CATEGORIES: Category[] = [
+  'Salário e receitas',
+  'Alimentação',
+  'Mercado',
+  'Transporte',
+  'Moradia',
+  'Contas e serviços',
+  'Imposto',
+  'Assinaturas',
+  'Saúde',
+  'Compras',
+  'Lazer',
+  'Cartão de crédito',
+  'Investimentos',
+  'Transferências',
+  'Outros',
+];
 
 export interface Transaction {
   id: string;
